@@ -1,52 +1,73 @@
 <template>
-  <v-card elevation="2" class="area">
-    <v-card-title> Acesso ao sistema </v-card-title>
-    <div class="flex-container">
-      <v-form>
-        <v-container>
-          <v-row>
-            <v-col>
-              <v-text-field
-                label="CPF usuário"
-                placeholder="CPF usuário"
-                outlined
-              ></v-text-field>
-              <v-text-field
-                label="Senha"
-                placeholder="Senha"
-                outlined
-              ></v-text-field>
-              <v-btn text color="warning"> Recuperar Senha </v-btn>
-              <v-btn depressed color="success"> Login </v-btn>
-              <div class="cardLogin">
-              <v-btn depressed color="primary"> Quero me cadastrar </v-btn>
-              </div>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-form>
+  <body>
+    <div class="Flex-container">
+      <div>
+        <Login :cadastro="cadastro" :visibleLoginProp="visibleLoginProp" />
+      </div>
+      <div>
+        <CadastroLoja :visibleCadastroLojaProp="visibleCadastroLojaProp" />
+      </div>
     </div>
-  </v-card>
+  </body>
 </template>
 
+
 <script>
-export default {};
+import CadastroLoja from "./CadastroLoja.vue";
+import Login from "./Login.vue"
+
+export default {
+  components: {
+    CadastroLoja,
+    Login,
+  },
+  data() {
+    return {
+      visibleCadastroLojaProp: false,
+      visibleLoginProp: true,
+    }
+  },
+ watch: {
+   visibleLoginProp() {
+     this.visibleCadastroLoja = true 
+     this.visibleLoginProp = false
+    }
+  },
+  methods: {
+    cadastro() {
+      this.visibleCadastroLojaProp = true
+      this.visibleLoginProp = false
+      this.visibleMenu = false
+    },
+    abreMenu() {
+      this.visibleMenu = true
+    }
+  },
+}
 </script>
 
 <style >
-.flex-container {
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
-}
-.area {
+body {
   margin: 20px;
-  width: 300px;
+  height: calc(100% - 40px);
 }
-.cardLogin {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    justify-content: space-around;
+/* div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  } */
+
+.flex-container {
+  display: flex;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 20px;
+  height: calc(100% - 40px);
+}
+body {
+  display: grid;
+  flex-direction: row;
 }
 </style>
